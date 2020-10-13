@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Skins/Skin.gd" type="Script" id=1]
+[ext_resource path="res://Textures/NoSkin.png" type="Texture" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[node name="Skin" type="TextureRect"]
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 51.8242, 52.1917 )
+scale = Vector2( 0.299364, 0.287878 )
+texture = ExtResource( 3 )
+[connection signal="mouse_entered" from="." to="." method="_on_Skin_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Skin_mouse_exited"]

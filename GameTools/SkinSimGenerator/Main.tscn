@@ -1,0 +1,181 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Skin.gd" type="Script" id=1]
+[ext_resource path="res://Textures/NoSkin.png" type="Texture" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.09503
+margin_top = -1.28912
+margin_right = 1.09497
+margin_bottom = -1.28912
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 338.0
+margin_bottom = 539.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ID" type="TextEdit" parent="Panel"]
+margin_left = 79.0
+margin_top = 33.0
+margin_right = 244.0
+margin_bottom = 54.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="TextEdit" parent="Panel"]
+margin_left = 79.0
+margin_top = 59.0
+margin_right = 245.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Guns" type="ItemList" parent="Panel"]
+margin_left = 16.0
+margin_top = 85.0
+margin_right = 108.0
+margin_bottom = 290.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rarities" type="ItemList" parent="Panel"]
+margin_left = 221.0
+margin_top = 86.0
+margin_right = 313.0
+margin_bottom = 291.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FileDialog" type="FileDialog" parent="Panel"]
+margin_left = 13.0
+margin_top = 324.0
+margin_right = 320.0
+margin_bottom = 520.0
+window_title = "Open a File"
+mode = 0
+filters = PoolStringArray( "*.png" )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ImageSelect" type="Button" parent="Panel"]
+margin_left = 117.0
+margin_top = 90.0
+margin_right = 213.0
+margin_bottom = 110.0
+text = "Image"
+
+[node name="ImageSelect2" type="Button" parent="Panel"]
+margin_left = 271.0
+margin_top = 449.0
+margin_right = 332.0
+margin_bottom = 469.0
+text = "Save"
+
+[node name="Label" type="Label" parent="Panel"]
+margin_left = 57.0
+margin_top = 37.0
+margin_right = 76.0
+margin_bottom = 57.0
+text = "ID"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Panel"]
+margin_left = 39.0
+margin_top = 62.0
+margin_right = 77.0
+margin_bottom = 82.0
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Panel"]
+margin_left = 40.0
+margin_top = 295.0
+margin_right = 78.0
+margin_bottom = 315.0
+text = "Gun"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="Panel"]
+margin_left = 250.0
+margin_top = 296.0
+margin_right = 288.0
+margin_bottom = 316.0
+text = "Rarity"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+margin_left = 269.0
+margin_top = 472.0
+margin_right = 333.0
+margin_bottom = 536.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+margin_left = 113.43
+margin_top = 120.603
+margin_right = 217.43
+margin_bottom = 256.603
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value0" type="LineEdit" parent="Panel/VBoxContainer"]
+margin_right = 103.0
+margin_bottom = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Value1" type="LineEdit" parent="Panel/VBoxContainer"]
+margin_top = 28.0
+margin_right = 103.0
+margin_bottom = 52.0
+
+[node name="Value2" type="LineEdit" parent="Panel/VBoxContainer"]
+margin_top = 56.0
+margin_right = 103.0
+margin_bottom = 80.0
+
+[node name="Value3" type="LineEdit" parent="Panel/VBoxContainer"]
+margin_top = 84.0
+margin_right = 103.0
+margin_bottom = 108.0
+
+[node name="Value4" type="LineEdit" parent="Panel/VBoxContainer"]
+margin_top = 112.0
+margin_right = 103.0
+margin_bottom = 136.0
+[connection signal="item_selected" from="Panel/Guns" to="." method="_on_Guns_item_selected"]
+[connection signal="item_selected" from="Panel/Rarities" to="." method="_on_Rarities_item_selected"]
+[connection signal="file_selected" from="Panel/FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="pressed" from="Panel/ImageSelect" to="." method="_on_ImageSelect_pressed"]
+[connection signal="pressed" from="Panel/ImageSelect2" to="." method="_on_ImageSelect2_pressed"]
+[connection signal="text_changed" from="Panel/VBoxContainer/Value0" to="." method="_on_Value0_text_changed"]
+[connection signal="text_changed" from="Panel/VBoxContainer/Value1" to="." method="_on_Value1_text_changed"]
+[connection signal="text_changed" from="Panel/VBoxContainer/Value2" to="." method="_on_Value2_text_changed"]
+[connection signal="text_changed" from="Panel/VBoxContainer/Value3" to="." method="_on_Value3_text_changed"]
+[connection signal="text_changed" from="Panel/VBoxContainer/Value4" to="." method="_on_Value4_text_changed"]
