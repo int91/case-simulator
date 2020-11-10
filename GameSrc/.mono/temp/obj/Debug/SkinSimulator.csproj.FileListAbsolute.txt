@@ -1,0 +1,8 @@
+D:\Case Sim\case-simulator\GameSrc\.mono\temp\obj\Debug\SkinSimulator.csprojAssemblyReference.cache
+D:\Case Sim\case-simulator\GameSrc\.mono\temp\obj\Debug\SkinSimulator.AssemblyInfoInputs.cache
+D:\Case Sim\case-simulator\GameSrc\.mono\temp\obj\Debug\SkinSimulator.AssemblyInfo.cs
+D:\Case Sim\case-simulator\GameSrc\.mono\temp\obj\Debug\SkinSimulator.csproj.CoreCompileInputs.cache
+D:\Case Sim\case-simulator\GameSrc\.mono\temp\bin\Debug\SkinSimulator.dll
+D:\Case Sim\case-simulator\GameSrc\.mono\temp\bin\Debug\SkinSimulator.pdb
+D:\Case Sim\case-simulator\GameSrc\.mono\temp\obj\Debug\SkinSimulator.dll
+D:\Case Sim\case-simulator\GameSrc\.mono\temp\obj\Debug\SkinSimulator.pdb

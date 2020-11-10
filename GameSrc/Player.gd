@@ -1,11 +1,10 @@
 extends Node
 
-onready var inventoryPanel = $"../Control/Inventory"
-onready var inventoryGrid = $"../Control/Inventory/ScrollContainer/InvGrid"
-onready var shopPanel = $"../Control/Shop"
-onready var casePanel = $"../Control/OpenCases"
+onready var inventoryGrid = $"../Control/InvPanel/InvContainer/InvGrid"
 onready var skinSelected = $"../Control/SkinSelected"
-onready var openCases = $"../Control/OpenCases"
+onready var openCases = $"../Control/CasesPanel/OpenCases"
+onready var invWorth = $"../Control/InvPanel/Label2"
+onready var totalSkins = $"../Control/InvPanel/Label"
 var inventory = []
 var cases = []
 var stickers = []
@@ -29,12 +28,29 @@ func _ready():
 		savePlayerData()
 	if inventory != []:
 		for i in range(inventory.size()):
-			createItem("Skins/Skin.tscn", inventory[i])
-			pass
+			initInv(inventory[i])
+			addValue()
 		pass
 	openCases.addCases()
 	pass
+func addValue():
+	var invValue = 0
+	if inventory.size() != 0:
+		for i in range(inventory.size()):
+			invValue += inventory[i].Value
+		pass
+	invWorth.text = "Inventory Value: $" + str(invValue)
+	pass
+func initInv(stats):
+	var spawnpath = inventoryGrid
+	var instance = load("Skins/Skin.tscn")
+	var skin = instance.instance()
+	skin.skin = stats
+	skin.inInv = true
+	spawnpath.add_child(skin)
+	pass
 func createItem(Itempath, stats):
+	inventory.append(stats)
 	var spawnpath = inventoryGrid
 	var instance = load(Itempath)
 	var skin = instance.instance()
@@ -89,33 +105,12 @@ func _notification(event):
 		get_tree().quit()
 	pass
 func _process(delta):
+	totalSkins.text = "Total Items: " + str(inventory.size())
 	if expe >= nextLevel:
 		expe -= nextLevel
 		level += 1
 		nextLevel = 100 * level
 		pass
-	if Input.is_action_just_pressed("tab"):
-		if inventoryPanel.visible:
-			skinSelected.hide()
-			inventoryPanel.hide()
-		else:
-			inventoryPanel.show()
-	if Input.is_action_just_pressed("shop"):
-		if shopPanel.visible:
-			skinSelected.hide()
-			shopPanel.hide()
-		else:
-			shopPanel.show()
-	if Input.is_action_just_pressed("cases"):
-		if casePanel.visible:
-			skinSelected.hide()
-			casePanel.hide()
-		else:
-			casePanel.show()
-	if Input.is_action_just_pressed("controls"):
-		if $"../Control/Controls".visible:
-			skinSelected.hide()
-			$"../Control/Controls".hide()
-		else:
-			$"../Control/Controls".show()
+	if Input.is_action_just_pressed("gamble"):
+		Settings.GamblingSell = !Settings.GamblingSell
 	pass

@@ -17,7 +17,7 @@ func loadCase(caseID):
 	$CaseName.text = caseData.CaseName + "\n$" + str(price)
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_rightclick") && hovered:
 		if player.money >= price:
 			player.cases[index].Keys += 1

@@ -1,6 +1,12 @@
 extends TextureButton
 
-onready var player = $"../../../Player"
+onready var cMenu = $"/root/World/Control"
+onready var cSelect = $"../../../CaseSelected"
+onready var skinOpen = $"../../../SkinOpened"
+onready var skinName = $"../../../SkinOpened/SkinName"
+onready var skinStats = $"../../../SkinOpened/SkinStats"
+onready var skinText = $"../../../SkinOpened/SkinTexture"
+onready var player = $"../../../../Player"
 onready var world = get_node("/root") 
 onready var nameNode = $CaseName
 onready var caseAmount = $CaseAmount
@@ -8,7 +14,7 @@ var ID = "OACase"
 var index = 0
 var unlockLevel = 0
 var caseName = "Operation Alpha"
-var odds = [100, 20, 10, 5, 2]
+var odds = [70, 33, 15, 7, 2]
 var commonSkins = ["SkinDef"]
 var uncommonSkins = ["UmpPHaze"]
 var rareSkins = ["UmpBHaze"]
@@ -16,6 +22,8 @@ var exoticSkins = ["G18DeadWeight"]
 var relicSkins = ["BayonetPHaze"]
 var totalSkins = 0
 var conditions = [0.23, 0.54, 0.73, 0.89, 1]
+var isPreorder = false
+var type = 0 #0 = Skins, 1 = Stickers, 2 = Charms
 func _ready():
 	totalSkins = commonSkins.size() + uncommonSkins.size() + rareSkins.size() + exoticSkins.size()
 	if totalSkins > 25:
@@ -23,7 +31,7 @@ func _ready():
 		pass
 	nameNode.text = caseName
 	pass
-func _physics_process(delta):
+func _physics_process(_delta):
 	if player.level >= unlockLevel:
 		self.show()
 		pass
@@ -42,32 +50,34 @@ func loadCase(caseID):
 	self.exoticSkins = caseData.ExoticSkins
 	self.relicSkins = caseData.RelicSkins
 	self.unlockLevel = caseData.UnlockLevel
+	self.isPreorder = caseData.Preorder
+	self.type = caseData.Type
 	pass
 func openCase():
-	var skinType = int(rand_range(1, 100))
-	print(skinType)
-	if (skinType <= odds[0] && skinType > odds[1]):
-		commonCase()
-		pass
-	if (skinType <= odds[1] && skinType > odds[2]):
-		uncommonCase()
-		pass
-	if (skinType <= odds[2] && skinType > odds[3]):
-		rareCase()
-		pass
-	if (skinType <= odds[3] && skinType > odds[4]):
-		exoticCase()
-		pass
-	if (skinType <= odds[4]):
-		relicCase()
-		pass
-	pass
-func commonCase():
-	randomize()
-	var skinIndex = int(rand_range(0, commonSkins.size()))
-	var instance = load("Skins/Skin.tscn")
-	var skin = instance.instance()
-	skin.loadSkin(commonSkins[skinIndex])
+	var skinType = int(rand_range(0, 100))
+	var skinIndex
+	var instance
+	var skin
+	instance = load("Skins/Skin.tscn")
+	skin = instance.instance()
+	if skinType <= odds[0]:
+		skinIndex = int(rand_range(0, commonSkins.size()))
+		skin.loadSkin(commonSkins[skinIndex])
+	else:
+		skinType -= odds[0]
+		if skinType <= odds[4]:
+			skinIndex = int(rand_range(0, relicSkins.size()))
+			skin.loadSkin(relicSkins[skinIndex])
+		elif skinType <= odds[3]:
+			skinIndex = int(rand_range(0, exoticSkins.size()))
+			skin.loadSkin(exoticSkins[skinIndex])
+		elif skinType <= odds[2]:
+			skinIndex = int(rand_range(0, rareSkins.size()))
+			skin.loadSkin(rareSkins[skinIndex])
+		elif skinType <= odds[1]:
+			skinIndex = int(rand_range(0, uncommonSkins.size()))
+			skin.loadSkin(uncommonSkins[skinIndex])
+		print(str(skinType))
 	randomize()
 	skin.skin.Float = rand_range(0, 1)
 	if (skin.skin.Float <= conditions[0]):
@@ -86,163 +96,54 @@ func commonCase():
 		skin.skin.Condition = "Battle Scarred"
 		pass
 	world.add_child(skin)
-	$"../../SkinOpened".show()
-	$"../../SkinOpened/SkinName".text = skin.skin.Name
-	$"../../SkinOpened/SkinStats".text = str("Rarity: " + str(skin.skin.Rarity) + "\n" + "Float: " 
+	skinOpen.show()
+	skinOpen.raise()
+	skinName.text = skin.skin.Name
+	skinStats.text = str("Rarity: " + str(skin.skin.Rarity) + "\n" + "Float: " 
 	+ str(skin.skin.Float) + "\n" + "Condition: " + str(skin.skin.Condition) + "\n" + 
 	"Value: $" + str(skin.skin.Value))
-	$"../../SkinOpened/SkinTexture".texture = load(skin.skin.Image)
+	skinText.texture = load(skin.skin.Image)
 	player.createItem("Skins/Skin.tscn", skin.skin)
-	player.inventory.append(skin.skin)
 	player.expe += 5
-	skin.queue_free()
-	pass
-func uncommonCase():
-	randomize()
-	var skinIndex = int(rand_range(0, uncommonSkins.size()))
-	var instance = load("Skins/Skin.tscn")
-	var skin = instance.instance()
-	skin.loadSkin(uncommonSkins[skinIndex])
-	randomize()
-	skin.skin.Float = rand_range(0, 1)
-	if (skin.skin.Float <= conditions[0]):
-		skin.skin.Condition = "Factory New"
-		pass
-	elif (skin.skin.Float <= conditions[1]):
-		skin.skin.Condition = "Tested"
-		pass
-	elif (skin.skin.Float <= conditions[2]):
-		skin.skin.Condition = "Used"
-		pass
-	elif (skin.skin.Float <= conditions[3]):
-		skin.skin.Condition = "Heavily Worn"
-		pass
-	elif (skin.skin.Float <= conditions[4]):
-		skin.skin.Condition = "Battle Scarred"
-		pass
-	world.add_child(skin)
-	$"../../SkinOpened".show()
-	$"../../SkinOpened/SkinName".text = skin.skin.Name
-	$"../../SkinOpened/SkinStats".text = str("Rarity: " + str(skin.skin.Rarity) + "\n" + "Float: " 
-	+ str(skin.skin.Float) + "\n" + "Condition: " + str(skin.skin.Condition) + "\n" + 
-	"Value: $" + str(skin.skin.Value))
-	$"../../SkinOpened/SkinTexture".texture = load(skin.skin.Image)
-	player.createItem("Skins/Skin.tscn", skin.skin)
-	player.inventory.append(skin.skin)
-	player.expe += 10
-	skin.queue_free()
-	pass
-func rareCase():
-	randomize()
-	var skinIndex = int(rand_range(0, rareSkins.size()))
-	var instance = load("Skins/Skin.tscn")
-	var skin = instance.instance()
-	skin.loadSkin(rareSkins[skinIndex])
-	randomize()
-	skin.skin.Float = rand_range(0, 1)
-	if (skin.skin.Float <= conditions[0]):
-		skin.skin.Condition = "Factory New"
-		pass
-	elif (skin.skin.Float <= conditions[1]):
-		skin.skin.Condition = "Tested"
-		pass
-	elif (skin.skin.Float <= conditions[2]):
-		skin.skin.Condition = "Used"
-		pass
-	elif (skin.skin.Float <= conditions[3]):
-		skin.skin.Condition = "Heavily Worn"
-		pass
-	elif (skin.skin.Float <= conditions[4]):
-		skin.skin.Condition = "Battle Scarred"
-		pass
-	world.add_child(skin)
-	$"../../SkinOpened".show()
-	$"../../SkinOpened/SkinName".text = skin.skin.Name
-	$"../../SkinOpened/SkinStats".text = str("Rarity: " + str(skin.skin.Rarity) + "\n" + "Float: " 
-	+ str(skin.skin.Float) + "\n" + "Condition: " + str(skin.skin.Condition) + "\n" + 
-	"Value: $" + str(skin.skin.Value))
-	$"../../SkinOpened/SkinTexture".texture = load(skin.skin.Image)
-	player.createItem("Skins/Skin.tscn", skin.skin)
-	player.inventory.append(skin.skin)
-	player.expe += 15
-	skin.queue_free()
-	pass
-func exoticCase():
-	randomize()
-	var skinIndex = int(rand_range(0, exoticSkins.size()))
-	var instance = load("Skins/Skin.tscn")
-	var skin = instance.instance()
-	skin.loadSkin(exoticSkins[skinIndex])
-	randomize()
-	skin.skin.Float = rand_range(0, 1)
-	if (skin.skin.Float <= conditions[0]):
-		skin.skin.Condition = "Factory New"
-		pass
-	elif (skin.skin.Float <= conditions[1]):
-		skin.skin.Condition = "Tested"
-		pass
-	elif (skin.skin.Float <= conditions[2]):
-		skin.skin.Condition = "Used"
-		pass
-	elif (skin.skin.Float <= conditions[3]):
-		skin.skin.Condition = "Heavily Worn"
-		pass
-	elif (skin.skin.Float <= conditions[4]):
-		skin.skin.Condition = "Battle Scarred"
-		pass
-	world.add_child(skin)
-	$"../../SkinOpened".show()
-	$"../../SkinOpened/SkinName".text = skin.skin.Name
-	$"../../SkinOpened/SkinStats".text = str("Rarity: " + str(skin.skin.Rarity) + "\n" + "Float: " 
-	+ str(skin.skin.Float) + "\n" + "Condition: " + str(skin.skin.Condition) + "\n" + 
-	"Value: $" + str(skin.skin.Value))
-	$"../../SkinOpened/SkinTexture".texture = load(skin.skin.Image)
-	player.createItem("Skins/Skin.tscn", skin.skin)
-	player.inventory.append(skin.skin)
-	skin.queue_free()
-	player.expe += 20
-	pass
-func relicCase():
-	randomize()
-	var skinIndex = int(rand_range(0, relicSkins.size()))
-	var instance = load("Skins/Skin.tscn")
-	var skin = instance.instance()
-	skin.loadSkin(relicSkins[skinIndex])
-	randomize()
-	skin.skin.Float = rand_range(0, 1)
-	if (skin.skin.Float <= conditions[0]):
-		skin.skin.Condition = "Factory New"
-		pass
-	elif (skin.skin.Float <= conditions[1]):
-		skin.skin.Condition = "Tested"
-		pass
-	elif (skin.skin.Float <= conditions[2]):
-		skin.skin.Condition = "Used"
-		pass
-	elif (skin.skin.Float <= conditions[3]):
-		skin.skin.Condition = "Heavily Worn"
-		pass
-	elif (skin.skin.Float <= conditions[4]):
-		skin.skin.Condition = "Battle Scarred"
-		pass
-	world.add_child(skin)
-	$"../../SkinOpened".show()
-	$"../../SkinOpened/SkinName".text = skin.skin.Name
-	$"../../SkinOpened/SkinStats".text = str("Rarity: " + str(skin.skin.Rarity) + "\n" + "Float: " 
-	+ str(skin.skin.Float) + "\n" + "Condition: " + str(skin.skin.Condition) + "\n" + 
-	"Value: $" + str(skin.skin.Value))
-	$"../../SkinOpened/SkinTexture".texture = load(skin.skin.Image)
-	player.createItem("Skins/Skin.tscn", skin.skin)
-	player.inventory.append(skin.skin)
-	player.expe += 25
+	player.addValue()
 	skin.queue_free()
 	pass
 func _on_Case1_button_up():
-	#if !$"../../SkinOpened".visible:
-	if player.cases[index].Amount > 0 && player.cases[index].Keys > 0:
-		openCase()
-		player.cases[index].Amount -= 1
-		player.cases[index].Keys -= 1
+	if !isPreorder:
+		cSelect.show()
+		cMenu.caseskins.clear()
+		cMenu.caseName = caseName
+		var caseChild = cMenu.SkinsGrid.get_children()
+		for i in range(caseChild.size()):
+			cMenu.SkinsGrid.get_child(i).queue_free()
 		pass
-		#pass
+		cMenu.show()
+		cMenu.raise()
+		cMenu.case = self
+		cMenu.caseindex = self.index
+		var skinz = []
+		skinz.clear()
+		for i in range(commonSkins.size()):
+			skinz.append(commonSkins[i])
+			pass
+		for i in range(uncommonSkins.size()):
+			skinz.append(uncommonSkins[i])
+			pass
+		for i in range(rareSkins.size()):
+			skinz.append(rareSkins[i])
+			pass
+		for i in range(exoticSkins.size()):
+			skinz.append(exoticSkins[i])
+			pass
+		for i in range(relicSkins.size()):
+			skinz.append(relicSkins[i])
+			pass
+		if cMenu.caseskins != skinz:
+			cMenu.caseskins = skinz
+			match (self.type):
+				0:
+					cMenu.createSkins(skinz)
+				1:
+					cMenu.createStickers(skinz)
+			pass
 	pass
