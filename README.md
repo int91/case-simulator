@@ -1,13 +1,21 @@
 # Case Simulator
 
-Case Simulator was essentailly a gambling simulation game. There were no plans of having micro-transactions, because I don't like to scam people out of their money when they could spend it on needs and things.
+Case Simulator is a prototype for a gambling simulation game. In Case Simulator the player will open cases to get items that can be sold, equipped, and even collected. Items in Case Simulator are gun skins, knife skins, and stickers.
 
-This was meant to be a game where you just opened cases and sold the skins you got out of those cases. I did plan to add things like multiplayer modes where the better skins you had the better chance you had of winning a 1v1. It was purely just a prototype though because I was over the moon with the scope and I let it change constantly when I should've just stuck to making it one contained gameplay style.
+Gun skins are simply just a paint job for a gun. Knife skins are a paint job for a knife. Stickers are stickers you can put on your gun to customize it for even increase its value.
 
-It was fun for me to make though, looking back through the code from time to time is kinda nice to do. I tried to make everything somewhat readable.
+The code is pretty readable since it's written in the GDScript language. GDScript is a high-level scripting language for the Godot game engine. GDScript was made to resemble python while providing better performance than languages like python and lua.
 
-To help make development of this game easier I had made my own tool that allows me to make skins and items pretty fast. It's in the SkinSimGenerator folder.
+Case Simulator stores item variables in .json files. Every case, skin, and sticker in the game has its own .json file. To determine what items are in cases, the game looks for the case file of the case the player wants to open and gets the value of the skins variable in the file. The skins variable contains a list of all of the skins that can be obtained from the case.
 
-The skins are stored in seperate .json files, these hold the data like the name, id, and value of each skin. This is the same with stickers, cases, etc. Looking back on it, I should've just made it all one big dictionary and store that in a .json for organization and readability.
+When opening a case in Case Simulator a few things happen.
+1.) The game creates a random number to determine what rarity item to give the player.
+2.) The game creates another random number to determine which item within that rarity to give the player.
+3.) The game creates one last random number to determine the condition of the item.
+4.) The item is then given to the player
 
-I'm pretty sure this version of the game is broken because I wanted to make every menu in the game controlled by one script. This wasn't a smart idea as each different menu was made to have its own script. Let's just say I learned my lesson. All you can really do in this game is just open a case (of your choice) and sell the skin you get. You don't really lose money because it isn't a balanced game but just a tech demo of a decent game.
+To help make development of this game easier I created my own tool that allows me to make skins and items. The reason I made the tool is to save time. The steps for me to make a new item without the tool are, find the skins folder, create the skinname.json file, edit skinname.json and type {"name":"myawesomeskin", etc.} The tool I created allows me to enter the skin's data into text fields and then click one button to add it to the skins folder.
+
+Case Simulator includes mini-games such as coin flip. Coin flip is a simple 50/50 gamble in which the player will tell the game how much money they want to bet and if the side they bet on wins they get double their bet back. If the player bets on the wrong side, they lose the bet.
+
+Another mini-game in Case Simulator is Tower. Tower is a game of guessing. There are 3 rows of buttons. Each button hides either a bet multiplier or a bomb that makes you lose the game and your bet. The player starts off by picking one row in the bottom column and clicking that button. Then the player moves to the next row if they got a bet multiplier. The player can cash-out at anypoint they want, so long as they don't lose.
