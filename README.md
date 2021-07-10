@@ -16,6 +16,8 @@ When opening a case in Case Simulator a few things happen.
 
 To help make development of this game easier I created my own tool that allows me to make skins and items. The reason I made the tool is to save time. The steps for me to make a new item without the tool are, find the skins folder, create the skinname.json file, edit skinname.json and type {"name":"myawesomeskin", etc.} The tool I created allows me to enter the skin's data into text fields and then click one button to add it to the skins folder.
 
+The tool can be found in the SkinSimGenerator folder
+
 Case Simulator includes mini-games such as coin flip. Coin flip is a simple 50/50 gamble in which the player will tell the game how much money they want to bet and if the side they bet on wins they get double their bet back. If the player bets on the wrong side, they lose the bet.
 
 Another mini-game in Case Simulator is Tower. Tower is a game of guessing. There are 3 rows of buttons. Each button hides either a bet multiplier or a bomb that makes you lose the game and your bet. The player starts off by picking one row in the bottom column and clicking that button. Then the player moves to the next row if they got a bet multiplier. The player can cash-out at anypoint they want, so long as they don't lose.
