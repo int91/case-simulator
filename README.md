@@ -9,10 +9,10 @@ The code is pretty readable since it's written in the GDScript language. GDScrip
 Case Simulator stores item variables in .json files. Every case, skin, and sticker in the game has its own .json file. To determine what items are in cases, the game looks for the case file of the case the player wants to open and gets the value of the skins variable in the file. The skins variable contains a list of all of the skins that can be obtained from the case.
 
 When opening a case in Case Simulator a few things happen.
-1.) The game creates a random number to determine what rarity item to give the player.
-2.) The game creates another random number to determine which item within that rarity to give the player.
-3.) The game creates one last random number to determine the condition of the item.
-4.) The item is then given to the player
+1. The game creates a random number to determine what rarity item to give the player.
+2. The game creates another random number to determine which item within that rarity to give the player.
+3. The game creates one last random number to determine the condition of the item.
+4. The item is then given to the player
 
 To help make development of this game easier I created my own tool that allows me to make skins and items. The reason I made the tool is to save time. The steps for me to make a new item without the tool are, find the skins folder, create the skinname.json file, edit skinname.json and type {"name":"myawesomeskin", etc.} The tool I created allows me to enter the skin's data into text fields and then click one button to add it to the skins folder.
 
