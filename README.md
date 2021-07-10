@@ -1,4 +1,4 @@
-# case-simulator
+# Case Simulator
 
 Case Simulator was essentailly a gambling simulation game. There were no plans of having micro-transactions, because I don't like to scam people out of their money when they could spend it on needs and things.
 
