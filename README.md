@@ -16,7 +16,7 @@ When opening a case in Case Simulator a few things happen.
 
 To help make development of this game easier I created my own tool that allows me to make skins and items. The reason I made the tool is to save time. The steps for me to make a new item without the tool are, find the skins folder, create the skinname.json file, edit skinname.json and type {"name":"myawesomeskin", etc.} The tool I created allows me to enter the skin's data into text fields and then click one button to add it to the skins folder.
 
-The tool can be found in the SkinSimGenerator folder
+The tool can be found in the SkinSimGenerator folder.
 
 Case Simulator includes mini-games such as coin flip. Coin flip is a simple 50/50 gamble in which the player will tell the game how much money they want to bet and if the side they bet on wins they get double their bet back. If the player bets on the wrong side, they lose the bet.
 
