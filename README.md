@@ -8,4 +8,6 @@ It was fun for me to make though, looking back through the code from time to tim
 
 To help make development of this game easier I had made my own tool that allows me to make skins and items pretty fast. It's in the SkinSimGenerator folder.
 
+The skins are stored in seperate .json files, these hold the data like the name, id, and value of each skin. This is the same with stickers, cases, etc. Looking back on it, I should've just made it all one big dictionary and store that in a .json for organization and readability.
+
 I'm pretty sure this version of the game is broken because I wanted to make every menu in the game controlled by one script. This wasn't a smart idea as each different menu was made to have its own script. Let's just say I learned my lesson. All you can really do in this game is just open a case (of your choice) and sell the skin you get. You don't really lose money because it isn't a balanced game but just a tech demo of a decent game.
