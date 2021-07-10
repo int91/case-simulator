@@ -14,7 +14,7 @@
 3. The game creates one last random number to determine the condition of the item.
 4. The item is then given to the player
 
-  To help make development of this game easier I created my own tool that allows me to make skins and items. The reason I made the tool is to save time. The steps for me to make a new item without the tool are, find the skins folder, create the skinname.json file, edit skinname.json and type {"name":"myawesomeskin", etc.} The tool I created allows me to enter the skin's data into text fields and then click one button to add it to the skins folder.
+  To help make development of this game easier I created my own tool that allows me to make skins and items. The steps for me to make a new item without the tool are, find the skins folder, create the skinname.json file, edit skinname.json and type {"name":"myawesomeskin", etc.} The tool I created allows me to enter the skin's data into text fields and then click one button to add it to the skins folder.
 
   The tool can be found in the SkinSimGenerator folder.
 
